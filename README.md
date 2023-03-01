@@ -15,7 +15,7 @@ new Trigger({
     name: "new.user",
     schema: z.object({}),
   }),
-
+  // The run functions gets called once per "new.user" event
   run: async (event, ctx) => {
     // Send the initial welcome email. See https://docs.trigger.dev/integrations/apis/sendgrid/actions/mail-send
     await sendgrid.mailSend("send-welcome-email", {
