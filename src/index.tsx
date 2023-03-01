@@ -8,13 +8,15 @@ new Trigger({
   // Trigger on a custom event, see https://docs.trigger.dev/triggers/custom-events
   on: customEvent({
     name: "new.user",
-    schema: z.object({}),
+    // Use zod to verify event payload. See https://docs.trigger.dev/guides/zod
+    schema: z.object({ id: z.string(), email: z.string(), name: z.string() }),
   }),
   // The run functions gets called once per "new.user" event
   run: async (event, ctx) => {
     // Send the initial welcome email. See https://docs.trigger.dev/integrations/apis/sendgrid/actions/mail-send
     await sendgrid.mailSend("send-welcome-email", {
       from: {
+        // Your 'from' email needs to be verified in SendGrid. https://docs.sendgrid.com/for-developers/sending-email/sender-identity
         email: "john@acme.dev",
         name: "John from the Acme Corporation",
       },
@@ -22,7 +24,8 @@ new Trigger({
         {
           to: [
             {
-              email: "user@email.com",
+              name: event.name,
+              email: event.email,
             },
           ],
         },
@@ -32,7 +35,7 @@ new Trigger({
         {
           // This can either be text/plain or text/html, text/html in this case
           type: "text/html",
-          value: `<p>Hi there,</p>
+          value: `<p>Hi ${event.name},</p>
 
 <p>Thanks for signing up to the Acme Corporation. </p>
 
@@ -50,6 +53,7 @@ new Trigger({
 
     // Send the follow up email
     await sendgrid.mailSend("send-follow-up-email", {
+      // Your 'from' email needs to be verified in SendGrid. https://docs.sendgrid.com/for-developers/sending-email/sender-identity
       from: {
         email: "john@acme.dev",
         name: "John Doe",
@@ -58,7 +62,8 @@ new Trigger({
         {
           to: [
             {
-              email: "user@email.com",
+              name: event.name,
+              email: event.email,
             },
           ],
         },
@@ -68,7 +73,7 @@ new Trigger({
         {
           // This can either be text/plain or text/html, text/plain in this case
           type: "text/plain",
-          value: `Hi there,
+          value: `Hi ${event.name},
 
 We hope you're enjoying using our product. If you have any questions, please get in touch!
 
