@@ -20,8 +20,8 @@ new Trigger({
     // Send the initial welcome email. See https://docs.trigger.dev/integrations/apis/sendgrid/actions/mail-send
     await sendgrid.mailSend("send-welcome-email", {
       from: {
-        email: "hello@trigger.dev",
-        name: "Matt from Trigger.dev",
+        email: "john@acme.dev",
+        name: "John from the Acme Corporation",
       },
       personalizations: [
         {
@@ -32,20 +32,20 @@ new Trigger({
           ],
         },
       ],
-      subject: "Welcome to Trigger.dev",
+      subject: "Welcome to the Acme Corporation!",
       content: [
         {
           // This can either be text/plain or text/html, text/html in this case
           type: "text/html",
           value: `<p>Hi there,</p>
 
-<p>Thanks for signing up to Trigger.dev. </p>
+<p>Thanks for signing up to the Acme Corporation. </p>
 
-<p>To get started, we recommend browsing our <a href="https://app.trigger.dev/templates">templates</a>.</p>
+<p>To get started, we recommend browsing our <a href="https://app.acme.dev/templates">templates</a>.</p>
 
 <p>Best,</p>
-<p>Matt</p>
-<p>CEO, Trigger.dev</p>`,
+<p>John</p>
+<p>CEO, the Acme Corporation</p>`,
         },
       ],
     });
@@ -56,8 +56,8 @@ new Trigger({
     // Send the follow up email
     await sendgrid.mailSend("send-follow-up-email", {
       from: {
-        email: "hello@trigger.dev",
-        name: "Matt Aitken",
+        email: "john@acme.dev",
+        name: "John Doe",
       },
       personalizations: [
         {
@@ -68,19 +68,19 @@ new Trigger({
           ],
         },
       ],
-      subject: "Follow up email",
+      subject: "How are you finding the Acme Corporation?",
       content: [
         {
           // This can either be text/plain or text/html, text/plain in this case
           type: "text/plain",
           value: `Hi there,
 
-We hope you're enjoying Trigger.dev. If you have any questions, please get in touch!
+We hope you're enjoying using our product. If you have any questions, please get in touch!
 
 Best,
-Matt,
+John,
 
-CEO, Trigger.dev`,
+CEO, the Acme Corporation`,
         },
       ],
     });
