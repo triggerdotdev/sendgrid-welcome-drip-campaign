@@ -15,8 +15,8 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@trigger.dev/sdk": "^0.2.18",
-    "@trigger.dev/sendgrid": "^0.1.26",
+    "@trigger.dev/sdk": "^0.2.22-next.0",
+    "@trigger.dev/sendgrid": "^0.1.28-next.0",
     "react": "^18.2.0",
     "zod": "^3.20.2"
   },
